@@ -8,7 +8,7 @@ using namespace std;
 
 int number = 0;
 //Class Person
-
+Student st;
 void Person::inputInfo()
 {
 	cout << "Nhap ma: ";
@@ -44,21 +44,30 @@ void Student::add()
 }
 void Student::list()
 {
-	ifstream input;
-	input.open(fileNameHs, ios::in);
-	Student st;
-	//vector<Student> stu;
-	while (!input.eof()) {
-		input.read((char*)&st, sizeof(st));
-		cout << "\n----------------------------\n";
-		cout << "Ma hoc sinh la: " << st.id <<  endl;
-		cout << "Ten hoc sinh la: " << st.name << endl;
-		cout << "Tuoi hoc sinh la: " << st.age << endl;
-		cout << "Nghe nghiep hoc sinh la: " << st.jobStu << endl;
-		//input.read((char*)&st, sizeof(st));
+	try
+	{
+		ifstream input;
+		input.open(fileNameHs, ios::in);
+		if (!input) {
+			cout << "Error in opening file..";
+		}
+		while (true) {
+			input.read((char*)&st, sizeof(st));
+			if (input.eof()) break;
+			else {
+				cout << "\n----------------------------\n";
+				cout << "Ma hoc sinh la: " << st.id << endl;
+				cout << "Ten hoc sinh la: " << st.name << endl;
+				cout << "Tuoi hoc sinh la: " << st.age << endl;
+				cout << "Nghe nghiep hoc sinh la: " << st.jobStu << endl;
+			}
+		}
+		input.close();
 	}
-	input.close();
-
+	catch (std::exception& e)
+	{
+		cout << "erorrrrr" << endl;
+	}
 }
 void Student::saveFile()
 {
@@ -74,17 +83,29 @@ void Student::saveFile()
 }
 void Student::update()
 {
-	int id;
-	cout << "Hay nhap ma so hoc sinh: ";
-	cin >> id;
-	if (id < 1)
-	{
-		cout << "Ma so hoc sinh khong hop le!\n";
-		return;
+
+	ifstream input;
+	input.open(fileNameHs, ios::in);
+	Student st;
+	vector<Student> stu;
+	while (!input.eof()) {
+		input.read((char*)&st, sizeof(st));
+		int id;
+		cout << "Hay nhap ma so hoc sinh: ";
+		cin >> id;
+		for (int i = 0; i <= stu.size(); i++) {
+			if (id == st.id) {
+				Person::inputInfo();
+				cout << "Nhap nghe nghiep: ";
+				cin >> jobStu;
+			}
+			else {
+				cout << "Ma so hoc sinh khong hop le!\n";
+				return;
+			}
+		}	
 	}
-	Person::inputInfo();
-	cout << "Nhap nghe nghiep: ";
-	cin >> jobStu;
+	input.close();
 }
 
 /*void Student::remove()
