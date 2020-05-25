@@ -1,49 +1,43 @@
 #pragma once
 #include <iostream>
+#include <string>
 using namespace std;
-const std::string fileName = "data.txt";
+const std::string fileNameHs = "hocsinh.txt";
+const std::string fileNameGv = "giaovien.txt";
 
-int number;
-bool x = false;
-bool y = false;
 class Person {
 protected:
 	int id;
-	char name[30];
+	string name;
 	int age;
 
 
 public:
-	int getIntRange(int low, int high);
-	virtual void inputInfo(int id);
-	void add();
-	virtual void printInfo(int id);
-	void list();
-	void remove();
-	void update();
-	void saveFile();
-	void student();
-	void teacher();
-	void exit();
-
-
+	void inputInfo();
+	void printInfo();
+	virtual void add();
+	virtual void list();
+	//virtual void remove();
+	virtual void update();
+	virtual void saveFile();
 };
 class Student : public Person {
 private:
-	char jobStu;
+	string jobStu;
 public:
 	void add();
 	void list();
+	//void remove();
 	void update();
-	void remove();
-
+	void saveFile();
 };
 class Teacher : public Person {
 private:
-	char jobTea;
+	string jobTea;
 public:
 	void add();
 	void list();
-	void update();
-	void remove();
+	//void remove();
+	//void update();
+	void saveFile();
 };
