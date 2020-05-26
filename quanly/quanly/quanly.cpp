@@ -69,17 +69,17 @@ int main()
 				break;
 			case 3:
 				cout << "Xoa hoc sinh:\n";
-				//person->remove();
+				person->remove();
 				//person->saveFile();
 				delete(person);
-				cout << "Xoa thanh cong!";
+				//cout << "Xoa thanh cong!";
 				break;
 			case 4:
 				cout << "Sua hoc sinh:\n";
 				person->update();
 				//person->saveFile();
 				delete(person);
-				cout << "Sua thanh cong!";
+				//cout << "Sua thanh cong!";
 				break;
 			case 0:
 				x= false;

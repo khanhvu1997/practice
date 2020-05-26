@@ -1,15 +1,16 @@
 #pragma once
 #include "person.h"
 #include <iostream>
-#include <String>
+#include <string>
 #include <fstream>
 #include <vector>
+#include <algorithm>
 using namespace std;
 
 int number = 0;
 //Class Person
 Student st;
-vector<Student> stu;
+//vector<Student> stu;
 void Person::inputInfo()
 {
 	cout << "Nhap ma: ";
@@ -30,12 +31,19 @@ void Person::printInfo()
 }
 void Person::add(){}
 void Person::list() {}
-//void Person::remove() {}
+void Person::remove() {}
 void Person::update() {}
 void Person::saveFile(){}
 
 
 //Class Student
+Student::Student() {};
+Student::Student(int id, string name, int age, string jobStu) {
+	this->id = id;
+	this->name = name;
+	this->age = age;
+	this->jobStu = jobStu;
+};
 void Student::add()
 {
 	number++;
@@ -83,82 +91,119 @@ void Student::saveFile()
 }
 void Student::update()
 { 
+	
 	int id;
+	std::vector<Student>   listStudent;
+
 	try {
 		ifstream input;
+		ofstream output;
 		input.open(fileNameHs, ios::in);
 		if (!input) {
 			cout << "Error in opening file..";
 		}
+		cout << "Hay nhap ma so hoc sinh: ";
+		cin >> id;
 		while (true) {
-				input.read((char*)&st, sizeof(st));
-				input.seekg(0, input.beg);
-				int length = input.tellg();
-				input.seekg(0, input.end);
-				char * buffer = new char[length];
-				input.read(buffer, length);
-				std::cout.write(buffer, length);
-				if (input.eof()) break;
-				else {
-					cout << "Hay nhap ma so hoc sinh: ";
-					cin >> id;
-					if (id == st.id) {
-						cout << "Nhap ten hoc sinh: ";
-						cin >> name;
-						cout << "Nhap tuoi hoc sinh: ";
-						cin >> age;
-						cout << "Nhap nghe nghiep hoc sinh: ";
-						cin >> jobStu;
-
-					}
-					else {
-						cout << "Ma so hoc sinh khong hop le!\n";
-						return;
-					}
+			input.read((char*)&st, sizeof(st));
+			if (input.eof()) break;
+			/*cout << "id:" << st.id << endl;
+			cout << "name:" << st.name << endl;
+			cout << "age:" << st.age << endl;
+			cout << "jobStu:" << st.jobStu << endl;*/
+			else {
+				if (id == st.id) {
+					cout << "Nhap ten hoc sinh: ";
+					cin >> name;
+					cout << "Nhap tuoi hoc sinh: ";
+					cin >> age;
+					cout << "Nhap nghe nghiep hoc sinh: ";
+					cin >> jobStu;
+					listStudent.push_back(Student(id, name, age, jobStu));
+					cout << "Sua thanh cong!";
 				}
+				else {
+					listStudent.push_back(Student(st.id, st.name, st.age, st.jobStu));			
+				} 
+			}
 		}
+		/*if (id != st.id) {
+			cout << "Ma khong chinh xac!";
+			return;
+		}*/
+		output.open(fileNameHs, ios::app || ios::trunc);
+		for (Student temp : listStudent) {
+			/*cout << "id:" << temp.id << endl;
+			cout << "name:" << temp.name << endl;
+			cout << "age:" << temp.age << endl;
+			cout << "jobStu:" << temp.jobStu << endl;*/
+			output.write((char *)&temp, sizeof(temp));
+		}
+		output.flush();
+		output.close();
 		input.close();
 	}
 	catch (std::exception& e)
 	{
 		cout << "erorrrrr" << endl;
 	}
-		/*while (!input.eof()) {
-			input.read((char*)&st, sizeof(st));
-				
-				
-				
-					if (id = st.id) {
-						Person::inputInfo();
-						cout << "Nhap nghe nghiep: ";
-						cin >> jobStu;
-					}
-					else {
-						cout << "Ma so hoc sinh khong hop le!\n";
-						return;
-					}		
-		}
-		input.close();
-	}catch (std::exception& e)
-	{
-		cout << "erorrrrr" << endl;
-	}*/
 }
 
-/*void Student::remove()
+void Student::remove()
 {
 	int id;
-	cout << "Hay nhap ma so hoc sinh: ";
-	cin >> id;
-	Student *st = new Student[number];
-	st[id] = st[number - 1];
-	if (id < 1||id > number)
-	{
-		cout << "Ma so hoc sinh khong hop le!\n";
-		return;
+	int index;
+	vector<Student>   listStudent;
+	try {
+		ifstream input;
+		ofstream output;
+		input.open(fileNameHs, ios::in);
+		if (!input) {
+			cout << "Error in opening file..";
+		}
+		cout << "Hay nhap ma so hoc sinh: ";
+		cin >> id;
+		/*vector<Student>::iterator it = find(listStudent.begin(), listStudent.end(), id);
+		if (it != listStudent.end())
+		{
+			index = distance(listStudent.begin(), it);
+		}
+		else
+		{
+			cout << "Element Not Found" << endl;
+		}*/
+		while (true) {
+			input.read((char*)&st, sizeof(st));
+			if (input.eof()) break;
+			listStudent.push_back(Student(st.id, st.name, st.age, st.jobStu));
+			/*else {
+				if (id == st.id) {
+					listStudent.erase(listStudent.begin() + index);
+					cout << "Xoa thanh cong!";
+				}
+				else {
+					cout << "Ma khong chinh xac!";
+					return;
+				}
+
+			}*/
+		}
+		output.open(fileNameHs, ios::app || ios::trunc);
+		for (Student temp : listStudent) {
+			if (temp.id == id) {
+				continue;
+			} 
+			output.write((char *)&temp, sizeof(temp));
+		}
+		output.flush();
+		output.close();
+		input.close();
 	}
-	number--;
-}*/
+	catch (std::exception& e)
+	{
+		cout << "erorrrrr" << endl;
+	}
+}
 
 
 //Class Teacher

@@ -4,6 +4,7 @@
 using namespace std;
 const std::string fileNameHs = "hocsinh.txt";
 const std::string fileNameGv = "giaovien.txt";
+const std::string fileName = "test.txt";
 
 class Person {
 protected:
@@ -17,7 +18,7 @@ public:
 	void printInfo();
 	virtual void add();
 	virtual void list();
-	//virtual void remove();
+	virtual void remove();
 	virtual void update();
 	virtual void saveFile();
 };
@@ -25,11 +26,14 @@ class Student : public Person {
 private:
 	string jobStu;
 public:
+	Student();
+	Student(int id, string name, int age, string jobStu);
 	void add();
 	void list();
-	//void remove();
+	void remove();
 	void update();
 	void saveFile();
+
 };
 class Teacher : public Person {
 private:
