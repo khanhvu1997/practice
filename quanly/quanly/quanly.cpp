@@ -77,7 +77,7 @@ int main()
 			case 4:
 				cout << "Sua hoc sinh:\n";
 				person->update();
-				person->saveFile();
+				//person->saveFile();
 				delete(person);
 				cout << "Sua thanh cong!";
 				break;

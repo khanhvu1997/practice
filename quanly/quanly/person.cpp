@@ -9,6 +9,7 @@ using namespace std;
 int number = 0;
 //Class Person
 Student st;
+vector<Student> stu;
 void Person::inputInfo()
 {
 	cout << "Nhap ma: ";
@@ -73,7 +74,6 @@ void Student::saveFile()
 {
 	ofstream output;
 	output.open(fileNameHs, ios::app);
-	Student st;
 	st.id = id;
 	st.name = name;
 	st.age = age;
@@ -82,30 +82,67 @@ void Student::saveFile()
 	output.close();
 }
 void Student::update()
-{
+{ 
+	int id;
+	try {
+		ifstream input;
+		input.open(fileNameHs, ios::in);
+		if (!input) {
+			cout << "Error in opening file..";
+		}
+		while (true) {
+				input.read((char*)&st, sizeof(st));
+				input.seekg(0, input.beg);
+				int length = input.tellg();
+				input.seekg(0, input.end);
+				char * buffer = new char[length];
+				input.read(buffer, length);
+				std::cout.write(buffer, length);
+				if (input.eof()) break;
+				else {
+					cout << "Hay nhap ma so hoc sinh: ";
+					cin >> id;
+					if (id == st.id) {
+						cout << "Nhap ten hoc sinh: ";
+						cin >> name;
+						cout << "Nhap tuoi hoc sinh: ";
+						cin >> age;
+						cout << "Nhap nghe nghiep hoc sinh: ";
+						cin >> jobStu;
 
-	ifstream input;
-	input.open(fileNameHs, ios::in);
-	Student st;
-	vector<Student> stu;
-	while (!input.eof()) {
-		input.read((char*)&st, sizeof(st));
-		int id;
-		cout << "Hay nhap ma so hoc sinh: ";
-		cin >> id;
-		for (int i = 0; i <= stu.size(); i++) {
-			if (id == st.id) {
-				Person::inputInfo();
-				cout << "Nhap nghe nghiep: ";
-				cin >> jobStu;
-			}
-			else {
-				cout << "Ma so hoc sinh khong hop le!\n";
-				return;
-			}
-		}	
+					}
+					else {
+						cout << "Ma so hoc sinh khong hop le!\n";
+						return;
+					}
+				}
+		}
+		input.close();
 	}
-	input.close();
+	catch (std::exception& e)
+	{
+		cout << "erorrrrr" << endl;
+	}
+		/*while (!input.eof()) {
+			input.read((char*)&st, sizeof(st));
+				
+				
+				
+					if (id = st.id) {
+						Person::inputInfo();
+						cout << "Nhap nghe nghiep: ";
+						cin >> jobStu;
+					}
+					else {
+						cout << "Ma so hoc sinh khong hop le!\n";
+						return;
+					}		
+		}
+		input.close();
+	}catch (std::exception& e)
+	{
+		cout << "erorrrrr" << endl;
+	}*/
 }
 
 /*void Student::remove()
