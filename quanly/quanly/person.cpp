@@ -127,10 +127,10 @@ void Student::update()
 				} 
 			}
 		}
-		/*if (id != st.id) {
+		if (id != st.id) {
 			cout << "Ma khong chinh xac!";
 			return;
-		}*/
+		}
 		output.open(fileNameHs, ios::app || ios::trunc);
 		for (Student temp : listStudent) {
 			/*cout << "id:" << temp.id << endl;
@@ -152,7 +152,7 @@ void Student::update()
 void Student::remove()
 {
 	int id;
-	int index;
+	//int index;
 	vector<Student>   listStudent;
 	try {
 		ifstream input;
@@ -192,7 +192,7 @@ void Student::remove()
 		for (Student temp : listStudent) {
 			if (temp.id == id) {
 				continue;
-			} 
+			}
 			output.write((char *)&temp, sizeof(temp));
 		}
 		output.flush();

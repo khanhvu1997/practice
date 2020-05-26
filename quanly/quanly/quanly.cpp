@@ -79,12 +79,10 @@ int main()
 				person->update();
 				//person->saveFile();
 				delete(person);
-				//cout << "Sua thanh cong!";
 				break;
 			case 0:
 				x= false;
 				y = false;
-				delete(person);
 				break;
 			}
 		}
@@ -128,7 +126,6 @@ int main()
 			case 0:
 				x = false;
 				y = false;
-				delete(person);
 				break;
 			}
 		}
