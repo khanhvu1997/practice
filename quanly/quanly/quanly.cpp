@@ -70,14 +70,11 @@ int main()
 			case 3:
 				cout << "Xoa hoc sinh:\n";
 				person->remove();
-				//person->saveFile();
 				delete(person);
-				//cout << "Xoa thanh cong!";
 				break;
 			case 4:
 				cout << "Sua hoc sinh:\n";
 				person->update();
-				//person->saveFile();
 				delete(person);
 				break;
 			case 0:
@@ -99,29 +96,25 @@ int main()
 			switch (input) {
 			case 1:
 				cout << "Danh sach giao vien:\n";
-				//delete(person);
-				//person->list();
+				person->list();
+				delete(person);
 				break;
 			case 2:
 				cout << "Them giao vien:\n";
-				//person->add();
-				//person->saveFile();
-				//delete(person);
+				person->add();
+				person->saveFile();
+				delete(person);
 				cout << "Them thanh cong!";
 				break;
 			case 3:
 				cout << "Xoa giao vien:\n";
-				//person->remove();
-				//person->saveFile();
-				//delete(person);
-				cout << "Xoa thanh cong!";
+				person->remove();
+				delete(person);
 				break;
 			case 4:
 				cout << "Sua giao vien:\n";
-				//person->update();
-				//person->saveFile();
-				//delete(person);
-				cout << "Sua thanh cong!";
+				person->update();
+				delete(person);
 				break;
 			case 0:
 				x = false;

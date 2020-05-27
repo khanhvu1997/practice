@@ -39,9 +39,11 @@ class Teacher : public Person {
 private:
 	string jobTea;
 public:
+	Teacher();
+	Teacher(int id, string name, int age, string jobTea);
 	void add();
 	void list();
-	//void remove();
-	//void update();
+	void remove();
+	void update();
 	void saveFile();
 };
